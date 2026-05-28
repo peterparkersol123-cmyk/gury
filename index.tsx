@@ -49,17 +49,17 @@ function CopyCA() {
 
 // Each entry: [src, left%, top%, size, rotation, animName, duration, delay]
 const HERO_MEMES: [string, string, string, number, number, string, number, number][] = [
-  // LEFT SIDE
-  ['/meme1.jpeg', '1%',  '12%', 180, -8,  'floatA', 7,  0],
-  ['/meme3.jpeg', '0%',  '52%', 160,  6,  'floatB', 9, -3],
-  ['/meme2.jpeg', '2%',  '78%', 150, -5,  'floatA', 8, -5],
-  // RIGHT SIDE
-  ['/meme2.jpeg', 'calc(100% - 190px)', '8%',  180,  9,  'floatB', 8, -2],
-  ['/meme4.jpeg', 'calc(100% - 175px)', '42%', 165, -7,  'floatA', 7, -6],
-  ['/meme3.jpeg', 'calc(100% - 180px)', '72%', 155,  5,  'floatB', 9, -1],
-  // EXTRAS peeking from edges
-  ['/meme4.jpeg', '-20px', '38%', 140, 12,  'floatA', 10, -4],
-  ['/meme1.jpeg', 'calc(100% - 140px)', 'calc(100% - 160px)', 140, -11, 'floatB', 10, -7],
+  // LEFT COLUMN
+  ['/meme1.jpeg', '3%',   '8%',  220, -8,  'floatA', 7,   0],
+  ['/meme3.jpeg', '4%',   '46%', 200,  7,  'floatB', 9,  -3],
+  ['/meme2.jpeg', '3%',   '76%', 190, -5,  'floatA', 8,  -5],
+  // RIGHT COLUMN
+  ['/meme2.jpeg', 'calc(100% - 230px)', '6%',   220,  9,  'floatB', 8,  -2],
+  ['/meme4.jpeg', 'calc(100% - 215px)', '40%',  205, -7,  'floatA', 7,  -6],
+  ['/meme3.jpeg', 'calc(100% - 210px)', '72%',  195,  6,  'floatB', 9,  -1],
+  // EXTRAS — slightly inset for depth
+  ['/meme4.jpeg', '7%',   '30%', 170, 11,  'floatB', 10, -4],
+  ['/meme1.jpeg', 'calc(100% - 195px)', 'calc(100% - 200px)', 170, -10, 'floatA', 10, -7],
 ];
 
 function App() {
