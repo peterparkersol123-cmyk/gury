@@ -284,10 +284,22 @@ function App() {
           <h2 style={{
             fontFamily: "'Permanent Marker', cursive",
             fontSize: 'clamp(42px, 6vw, 72px)',
-            color: '#1a1008', marginBottom: 48, lineHeight: 1.1,
+            color: '#1a1008', marginBottom: 40, lineHeight: 1.1,
           }}>
             Who is Gury<br />Gunsler?
           </h2>
+
+          <img
+            src="/hero.jpg"
+            alt="Gury Gunsler"
+            style={{
+              display: 'block', width: '100%', maxWidth: 700,
+              borderRadius: 16, marginBottom: 56,
+              boxShadow: '0 16px 56px rgba(0,0,0,0.3)',
+              border: '3px solid rgba(0,0,0,0.15)',
+            }}
+          />
+
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
             {[
               { title: 'Trigger Happy', body: "Gury Gunsler's trigger finger has never met a crypto project it didn't want to regulate. Especially yours." },
