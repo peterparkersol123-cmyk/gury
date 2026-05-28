@@ -1,5 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
+
+const CA = 'aXEkwkjPbqYFhV9aaBQbLXE8RphdnTdbGn2iUg8pump';
+const PUMP_URL = `https://pump.fun/coin/${CA}`;
+const DEX_URL = `https://dexscreener.com/solana/${CA}`;
+const X_URL = 'https://x.com/gurygunsler';
+
+function CopyCA() {
+  const [copied, setCopied] = useState(false);
+
+  const copy = () => {
+    navigator.clipboard.writeText(CA);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  return (
+    <div style={{
+      display: 'inline-flex', alignItems: 'center', gap: 12,
+      background: 'rgba(0,0,0,0.18)',
+      border: '2px solid rgba(0,0,0,0.2)',
+      borderRadius: 10, padding: '12px 18px',
+      maxWidth: '100%',
+    }}>
+      <span style={{
+        fontFamily: 'monospace', fontSize: 13, color: '#1a1008',
+        overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap',
+        maxWidth: 320,
+      }}>
+        {CA}
+      </span>
+      <button
+        onClick={copy}
+        style={{
+          background: '#1a1008', color: '#C8925A',
+          border: 'none', borderRadius: 6,
+          padding: '6px 14px', fontWeight: 700, fontSize: 12,
+          cursor: 'pointer', whiteSpace: 'nowrap',
+          letterSpacing: 0.5, transition: 'opacity 0.15s',
+          flexShrink: 0,
+        }}
+      >
+        {copied ? '✓ Copied!' : 'Copy CA'}
+      </button>
+    </div>
+  );
+}
 
 function App() {
   return (
@@ -30,7 +76,9 @@ function App() {
           ))}
         </div>
         <a
-          href="#buy"
+          href={PUMP_URL}
+          target="_blank"
+          rel="noopener noreferrer"
           style={{
             background: '#1a1008', color: '#C8925A',
             padding: '10px 22px', borderRadius: 8,
@@ -52,7 +100,6 @@ function App() {
         position: 'relative',
         overflow: 'hidden',
       }}>
-        {/* decorative circles */}
         <div style={{
           position: 'absolute', width: 600, height: 600, borderRadius: '50%',
           background: 'rgba(255,255,255,0.06)', top: '10%', left: '-15%',
@@ -77,7 +124,7 @@ function App() {
 
           <img
             src="/hero.jpg"
-            alt="Gary Gunsler"
+            alt="Gury Gunsler"
             style={{
               display: 'block', margin: '0 auto 40px',
               maxWidth: 680, width: '100%',
@@ -95,20 +142,28 @@ function App() {
             marginBottom: 24,
             textShadow: '4px 4px 0px rgba(255,255,255,0.2)',
           }}>
-            Gary<br />Gunsler
+            Gury<br />Gunsler
           </h1>
 
           <p style={{
             fontSize: 20, fontWeight: 400, color: '#3d200a',
-            maxWidth: 520, margin: '0 auto 48px',
+            maxWidth: 520, margin: '0 auto 32px',
             lineHeight: 1.6,
           }}>
             He didn't understand crypto.<br />
             So we made him the mascot.
           </p>
 
+          {/* CA BOX */}
+          <div style={{ marginBottom: 40 }}>
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, color: '#3d200a', opacity: 0.6, marginBottom: 10, textTransform: 'uppercase' }}>
+              Contract Address
+            </p>
+            <CopyCA />
+          </div>
+
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a id="buy" href="#" style={{
+            <a href={PUMP_URL} target="_blank" rel="noopener noreferrer" style={{
               background: '#1a1008', color: '#C8925A',
               padding: '16px 40px', borderRadius: 10,
               fontWeight: 800, fontSize: 16, textDecoration: 'none',
@@ -125,9 +180,9 @@ function App() {
                 (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 20px rgba(0,0,0,0.25)';
               }}
             >
-              Buy $GARY
+              Buy on Pump.fun
             </a>
-            <a href="#about" style={{
+            <a href={X_URL} target="_blank" rel="noopener noreferrer" style={{
               background: 'transparent',
               border: '2px solid #1a1008',
               color: '#1a1008',
@@ -139,7 +194,7 @@ function App() {
               onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = 'rgba(0,0,0,0.08)'}
               onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = 'transparent'}
             >
-              Learn More
+              Follow on X
             </a>
           </div>
         </div>
@@ -167,10 +222,7 @@ function App() {
       </div>
 
       {/* ABOUT */}
-      <section id="about" style={{
-        padding: '120px 24px',
-        background: '#BA7F45',
-      }}>
+      <section id="about" style={{ padding: '120px 24px', background: '#BA7F45' }}>
         <div style={{ maxWidth: 900, margin: '0 auto' }}>
           <div style={{
             display: 'inline-block',
@@ -178,46 +230,27 @@ function App() {
             fontSize: 11, fontWeight: 700, letterSpacing: 3,
             padding: '6px 14px', borderRadius: 4, marginBottom: 20,
             textTransform: 'uppercase',
-          }}>
-            About
-          </div>
+          }}>About</div>
           <h2 style={{
             fontFamily: "'Permanent Marker', cursive",
             fontSize: 'clamp(42px, 6vw, 72px)',
             color: '#1a1008', marginBottom: 48, lineHeight: 1.1,
           }}>
-            Who is Gary<br />Gunsler?
+            Who is Gury<br />Gunsler?
           </h2>
-
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
             {[
-              {
-                emoji: '🔫',
-                title: 'Trigger Happy',
-                body: 'Gary Gunsler\'s trigger finger has never met a crypto project it didn\'t want to regulate. Especially yours.',
-              },
-              {
-                emoji: '📋',
-                title: 'Enforcement First',
-                body: 'Why provide clarity when you can just send a subpoena? Gary\'s rulebook has one rule: figure it out yourself.',
-              },
-              {
-                emoji: '👀',
-                title: 'Always Watching',
-                body: 'Decentralized? Gary knows. Anonymous? Gary knows. On-chain? Gary definitely knows.',
-              },
+              { emoji: '🔫', title: 'Trigger Happy', body: "Gury Gunsler's trigger finger has never met a crypto project it didn't want to regulate. Especially yours." },
+              { emoji: '📋', title: 'Enforcement First', body: "Why provide clarity when you can just send a subpoena? Gury's rulebook has one rule: figure it out yourself." },
+              { emoji: '👀', title: 'Always Watching', body: "Decentralized? Gury knows. Anonymous? Gury knows. On-chain? Gury definitely knows." },
             ].map(card => (
               <div key={card.title} style={{
                 background: 'rgba(255,255,255,0.12)',
                 border: '2px solid rgba(0,0,0,0.12)',
                 borderRadius: 16, padding: '36px 28px',
-                backdropFilter: 'blur(8px)',
               }}>
                 <div style={{ fontSize: 40, marginBottom: 16 }}>{card.emoji}</div>
-                <h3 style={{
-                  fontFamily: "'Permanent Marker', cursive",
-                  fontSize: 22, color: '#1a1008', marginBottom: 12,
-                }}>{card.title}</h3>
+                <h3 style={{ fontFamily: "'Permanent Marker', cursive", fontSize: 22, color: '#1a1008', marginBottom: 12 }}>{card.title}</h3>
                 <p style={{ color: '#3d200a', lineHeight: 1.7, fontSize: 15 }}>{card.body}</p>
               </div>
             ))}
@@ -226,10 +259,7 @@ function App() {
       </section>
 
       {/* TOKENOMICS */}
-      <section id="tokenomics" style={{
-        padding: '120px 24px',
-        background: '#C8925A',
-      }}>
+      <section id="tokenomics" style={{ padding: '120px 24px', background: '#C8925A' }}>
         <div style={{ maxWidth: 900, margin: '0 auto', textAlign: 'center' }}>
           <div style={{
             display: 'inline-block',
@@ -237,50 +267,40 @@ function App() {
             fontSize: 11, fontWeight: 700, letterSpacing: 3,
             padding: '6px 14px', borderRadius: 4, marginBottom: 20,
             textTransform: 'uppercase',
-          }}>
-            Tokenomics
-          </div>
+          }}>Tokenomics</div>
           <h2 style={{
             fontFamily: "'Permanent Marker', cursive",
             fontSize: 'clamp(42px, 6vw, 72px)',
             color: '#1a1008', marginBottom: 16, lineHeight: 1.1,
-          }}>
-            The Numbers
-          </h2>
-          <p style={{ color: '#3d200a', fontSize: 18, marginBottom: 64, maxWidth: 480, margin: '0 auto 64px' }}>
+          }}>The Numbers</h2>
+          <p style={{ color: '#3d200a', fontSize: 18, margin: '0 auto 64px', maxWidth: 480 }}>
             Simple. Transparent. Gary-proof.
           </p>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 20, maxWidth: 800, margin: '0 auto' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 20, maxWidth: 800, margin: '0 auto 48px' }}>
             {[
               { label: 'Total Supply', value: '1B', sub: '$GARY' },
               { label: 'Tax', value: '0%', sub: 'buy / sell' },
               { label: 'LP Burned', value: '100%', sub: 'locked forever' },
               { label: 'Ownership', value: '0%', sub: 'renounced' },
             ].map(stat => (
-              <div key={stat.label} style={{
-                background: '#1a1008',
-                borderRadius: 16, padding: '40px 20px',
-                border: '2px solid rgba(0,0,0,0.2)',
-              }}>
-                <div style={{
-                  fontFamily: "'Permanent Marker', cursive",
-                  fontSize: 48, color: '#C8925A', lineHeight: 1,
-                }}>{stat.value}</div>
+              <div key={stat.label} style={{ background: '#1a1008', borderRadius: 16, padding: '40px 20px' }}>
+                <div style={{ fontFamily: "'Permanent Marker', cursive", fontSize: 48, color: '#C8925A', lineHeight: 1 }}>{stat.value}</div>
                 <div style={{ color: '#C8925A', opacity: 0.6, fontSize: 13, marginTop: 6 }}>{stat.sub}</div>
                 <div style={{ color: '#C8925A', fontWeight: 600, fontSize: 13, marginTop: 10, letterSpacing: 1, textTransform: 'uppercase' }}>{stat.label}</div>
               </div>
             ))}
           </div>
+
+          {/* CA IN TOKENOMICS */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10 }}>
+            <p style={{ fontSize: 11, fontWeight: 700, letterSpacing: 2, color: '#3d200a', opacity: 0.6, textTransform: 'uppercase' }}>Contract Address</p>
+            <CopyCA />
+          </div>
         </div>
       </section>
 
       {/* COMMUNITY */}
-      <section id="community" style={{
-        padding: '120px 24px',
-        background: '#BA7F45',
-        textAlign: 'center',
-      }}>
+      <section id="community" style={{ padding: '120px 24px', background: '#BA7F45', textAlign: 'center' }}>
         <div style={{ maxWidth: 700, margin: '0 auto' }}>
           <h2 style={{
             fontFamily: "'Permanent Marker', cursive",
@@ -294,11 +314,11 @@ function App() {
           </p>
           <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap' }}>
             {[
-              { label: 'Telegram', href: '#' },
-              { label: 'Twitter / X', href: '#' },
-              { label: 'Dexscreener', href: '#' },
+              { label: 'Twitter / X', href: X_URL },
+              { label: 'Dexscreener', href: DEX_URL },
+              { label: 'Pump.fun', href: PUMP_URL },
             ].map(link => (
-              <a key={link.label} href={link.href} style={{
+              <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer" style={{
                 background: '#1a1008', color: '#C8925A',
                 padding: '14px 32px', borderRadius: 10,
                 fontWeight: 700, fontSize: 15, textDecoration: 'none',
@@ -322,14 +342,13 @@ function App() {
         padding: '40px 48px',
         display: 'flex', justifyContent: 'space-between', alignItems: 'center',
         flexWrap: 'wrap', gap: 16,
-        borderTop: '2px solid rgba(255,255,255,0.05)',
       }}>
         <span style={{ fontFamily: "'Permanent Marker', cursive", fontSize: 20 }}>$GARY</span>
         <p style={{ opacity: 0.4, fontSize: 12, maxWidth: 500, textAlign: 'center', lineHeight: 1.5 }}>
           $GARY is a meme coin with no intrinsic value or expectation of financial return.
-          This is satire. Gary Gunsler is a fictional character. Not financial advice.
+          This is satire. Gury Gunsler is a fictional character. Not financial advice.
         </p>
-        <span style={{ opacity: 0.4, fontSize: 12 }}>© 2024 $GARY</span>
+        <span style={{ opacity: 0.4, fontSize: 12 }}>© 2025 $GARY</span>
       </footer>
 
     </div>
