@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { createRoot } from 'react-dom/client';
 
 const CA = 'aXEkwkjPbqYFhV9aaBQbLXE8RphdnTdbGn2iUg8pump';
@@ -44,6 +44,90 @@ function CopyCA() {
         {copied ? '✓ Copied!' : 'Copy CA'}
       </button>
     </div>
+  );
+}
+
+const MEMES = ['/meme1.jpeg', '/meme2.jpeg', '/meme3.jpeg', '/meme4.jpeg'];
+
+type FloaterProps = { src: string; seed: number };
+
+function Floater({ src, seed }: FloaterProps) {
+  const size = 120 + (seed % 5) * 28;
+  const startX = 5 + (seed * 23) % 85;
+  const startY = 5 + (seed * 37) % 85;
+  const duration = 14 + (seed % 7) * 2;
+  const delay = -(seed * 3.1);
+  const rotate = (seed % 3 === 0 ? 1 : -1) * (8 + (seed % 12));
+
+  return (
+    <div style={{
+      position: 'absolute',
+      left: `${startX}%`,
+      top: `${startY}%`,
+      width: size,
+      height: size,
+      borderRadius: 14,
+      overflow: 'hidden',
+      boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
+      border: '3px solid rgba(0,0,0,0.15)',
+      animation: `float${seed % 4} ${duration}s ease-in-out ${delay}s infinite`,
+      transform: `rotate(${rotate}deg)`,
+      pointerEvents: 'none',
+      zIndex: 0,
+    }}>
+      <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+    </div>
+  );
+}
+
+function FloatingMemes() {
+  const items = MEMES.flatMap((src, i) =>
+    Array.from({ length: 3 }, (_, j) => ({ src, seed: i * 3 + j + 1 }))
+  );
+
+  return (
+    <section style={{ position: 'relative', height: 520, overflow: 'hidden', background: '#C8925A' }}>
+      <style>{`
+        @keyframes float0 {
+          0%, 100% { transform: translateY(0px) rotate(8deg); }
+          50% { transform: translateY(-32px) rotate(8deg); }
+        }
+        @keyframes float1 {
+          0%, 100% { transform: translateY(0px) rotate(-10deg); }
+          50% { transform: translateY(-24px) rotate(-10deg); }
+        }
+        @keyframes float2 {
+          0%, 100% { transform: translateY(0px) rotate(5deg); }
+          33% { transform: translateY(-18px) rotate(5deg); }
+          66% { transform: translateY(-36px) rotate(5deg); }
+        }
+        @keyframes float3 {
+          0%, 100% { transform: translateY(0px) rotate(-6deg); }
+          50% { transform: translateY(-28px) rotate(-6deg); }
+        }
+      `}</style>
+      {items.map(({ src, seed }) => (
+        <Floater key={seed} src={src} seed={seed} />
+      ))}
+      <div style={{
+        position: 'absolute', inset: 0, zIndex: 1,
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        background: 'rgba(200, 146, 90, 0.45)',
+        backdropFilter: 'blur(2px)',
+      }}>
+        <h2 style={{
+          fontFamily: "'Permanent Marker', cursive",
+          fontSize: 'clamp(48px, 7vw, 80px)',
+          color: '#1a1008',
+          textAlign: 'center',
+          lineHeight: 1.1,
+          textShadow: '3px 3px 0 rgba(255,255,255,0.25)',
+          userSelect: 'none',
+        }}>
+          The Memes<br />Are Real
+        </h2>
+      </div>
+    </section>
   );
 }
 
@@ -220,6 +304,8 @@ function App() {
           }
         `}</style>
       </div>
+
+      <FloatingMemes />
 
       {/* ABOUT */}
       <section id="about" style={{ padding: '120px 24px', background: '#BA7F45' }}>
