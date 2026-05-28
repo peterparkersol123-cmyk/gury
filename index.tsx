@@ -126,6 +126,25 @@ function App() {
           }
         `}</style>
 
+        {/* BACKGROUND VIDEO */}
+        <video
+          autoPlay muted loop playsInline
+          style={{
+            position: 'absolute', inset: 0,
+            width: '100%', height: '100%',
+            objectFit: 'cover',
+            zIndex: 0,
+          }}
+        >
+          <source src="/video.mp4" type="video/mp4" />
+        </video>
+        {/* overlay so content stays legible over the video */}
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'rgba(200, 146, 90, 0.55)',
+          zIndex: 1,
+        }} />
+
         {/* FLOATING MEMES */}
         {HERO_MEMES.map(([src, left, top, size, rot, anim, dur, del], i) => (
           <div key={i} style={{
@@ -136,13 +155,13 @@ function App() {
             border: '3px solid rgba(0,0,0,0.18)',
             transform: `rotate(${rot}deg)`,
             animation: `${anim} ${dur}s ease-in-out ${del}s infinite`,
-            pointerEvents: 'none', zIndex: 0,
+            pointerEvents: 'none', zIndex: 2,
           }}>
             <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
         ))}
 
-        <div style={{ position: 'relative', zIndex: 1, maxWidth: 900, padding: '0 24px' }}>
+        <div style={{ position: 'relative', zIndex: 3, maxWidth: 900, padding: '0 24px' }}>
           <div style={{
             display: 'inline-block',
             background: '#1a1008', color: '#C8925A',
