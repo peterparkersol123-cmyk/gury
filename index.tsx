@@ -260,7 +260,7 @@ function App() {
       }}>
         {[...Array(3)].map((_, i) => (
           <span key={i} style={{ display: 'inline-block', animation: 'ticker 20s linear infinite', animationDelay: `${i * -6.6}s` }}>
-            {'$GARY ✦ NOT SECURITIES ✦ PROBABLY ✦ ENFORCEMENT ACTION ✦ REGULATED ✦ '.repeat(4)}
+            {'$GARY — NOT SECURITIES — PROBABLY — ENFORCEMENT ACTION — REGULATED — '.repeat(4)}
           </span>
         ))}
         <style>{`
@@ -290,16 +290,16 @@ function App() {
           </h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: 24 }}>
             {[
-              { emoji: '🔫', title: 'Trigger Happy', body: "Gury Gunsler's trigger finger has never met a crypto project it didn't want to regulate. Especially yours." },
-              { emoji: '📋', title: 'Enforcement First', body: "Why provide clarity when you can just send a subpoena? Gury's rulebook has one rule: figure it out yourself." },
-              { emoji: '👀', title: 'Always Watching', body: "Decentralized? Gury knows. Anonymous? Gury knows. On-chain? Gury definitely knows." },
+              { title: 'Trigger Happy', body: "Gury Gunsler's trigger finger has never met a crypto project it didn't want to regulate. Especially yours." },
+              { title: 'Enforcement First', body: "Why provide clarity when you can just send a subpoena? Gury's rulebook has one rule: figure it out yourself." },
+              { title: 'Always Watching', body: "Decentralized? Gury knows. Anonymous? Gury knows. On-chain? Gury definitely knows." },
             ].map(card => (
               <div key={card.title} style={{
                 background: 'rgba(255,255,255,0.12)',
                 border: '2px solid rgba(0,0,0,0.12)',
                 borderRadius: 16, padding: '36px 28px',
               }}>
-                <div style={{ fontSize: 40, marginBottom: 16 }}>{card.emoji}</div>
+
                 <h3 style={{ fontFamily: "'Permanent Marker', cursive", fontSize: 22, color: '#1a1008', marginBottom: 12 }}>{card.title}</h3>
                 <p style={{ color: '#3d200a', lineHeight: 1.7, fontSize: 15 }}>{card.body}</p>
               </div>
