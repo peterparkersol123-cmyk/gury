@@ -115,17 +115,6 @@ function App() {
         position: 'relative',
         overflow: 'hidden',
       }}>
-        <style>{`
-          @keyframes floatA {
-            0%, 100% { transform: translateY(0px);   }
-            50%       { transform: translateY(-28px); }
-          }
-          @keyframes floatB {
-            0%, 100% { transform: translateY(0px);   }
-            50%       { transform: translateY(-20px); }
-          }
-        `}</style>
-
         {/* BACKGROUND VIDEO */}
         <video
           autoPlay muted loop playsInline
@@ -144,22 +133,6 @@ function App() {
           background: 'rgba(200, 146, 90, 0.55)',
           zIndex: 1,
         }} />
-
-        {/* FLOATING MEMES */}
-        {HERO_MEMES.map(([src, left, top, size, rot, anim, dur, del], i) => (
-          <div key={i} style={{
-            position: 'absolute', left, top,
-            width: size, height: size,
-            borderRadius: 14, overflow: 'hidden',
-            boxShadow: '0 10px 36px rgba(0,0,0,0.32)',
-            border: '3px solid rgba(0,0,0,0.18)',
-            transform: `rotate(${rot}deg)`,
-            animation: `${anim} ${dur}s ease-in-out ${del}s infinite`,
-            pointerEvents: 'none', zIndex: 2,
-          }}>
-            <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-          </div>
-        ))}
 
         <div style={{ position: 'relative', zIndex: 3, maxWidth: 900, padding: '0 24px' }}>
           <div style={{
@@ -260,8 +233,32 @@ function App() {
       </div>
 
       {/* ABOUT */}
-      <section id="about" style={{ padding: '120px 24px', background: '#BA7F45' }}>
-        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+      <section id="about" style={{ padding: '120px 24px', background: '#BA7F45', position: 'relative', overflow: 'hidden' }}>
+        <style>{`
+          @keyframes floatA {
+            0%, 100% { transform: translateY(0px);   }
+            50%       { transform: translateY(-28px); }
+          }
+          @keyframes floatB {
+            0%, 100% { transform: translateY(0px);   }
+            50%       { transform: translateY(-20px); }
+          }
+        `}</style>
+        {HERO_MEMES.map(([src, left, top, size, rot, anim, dur, del], i) => (
+          <div key={i} style={{
+            position: 'absolute', left, top,
+            width: size, height: size,
+            borderRadius: 14, overflow: 'hidden',
+            boxShadow: '0 10px 36px rgba(0,0,0,0.32)',
+            border: '3px solid rgba(0,0,0,0.18)',
+            transform: `rotate(${rot}deg)`,
+            animation: `${anim} ${dur}s ease-in-out ${del}s infinite`,
+            pointerEvents: 'none', zIndex: 0,
+          }}>
+            <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        ))}
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: 900, margin: '0 auto' }}>
           <div style={{
             display: 'inline-block',
             background: '#1a1008', color: '#C8925A',
