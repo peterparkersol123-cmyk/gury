@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
 const CA = 'aXEkwkjPbqYFhV9aaBQbLXE8RphdnTdbGn2iUg8pump';
@@ -47,89 +47,20 @@ function CopyCA() {
   );
 }
 
-const MEMES = ['/meme1.jpeg', '/meme2.jpeg', '/meme3.jpeg', '/meme4.jpeg'];
-
-type FloaterProps = { src: string; seed: number };
-
-function Floater({ src, seed }: FloaterProps) {
-  const size = 120 + (seed % 5) * 28;
-  const startX = 5 + (seed * 23) % 85;
-  const startY = 5 + (seed * 37) % 85;
-  const duration = 14 + (seed % 7) * 2;
-  const delay = -(seed * 3.1);
-  const rotate = (seed % 3 === 0 ? 1 : -1) * (8 + (seed % 12));
-
-  return (
-    <div style={{
-      position: 'absolute',
-      left: `${startX}%`,
-      top: `${startY}%`,
-      width: size,
-      height: size,
-      borderRadius: 14,
-      overflow: 'hidden',
-      boxShadow: '0 8px 32px rgba(0,0,0,0.25)',
-      border: '3px solid rgba(0,0,0,0.15)',
-      animation: `float${seed % 4} ${duration}s ease-in-out ${delay}s infinite`,
-      transform: `rotate(${rotate}deg)`,
-      pointerEvents: 'none',
-      zIndex: 0,
-    }}>
-      <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-    </div>
-  );
-}
-
-function FloatingMemes() {
-  const items = MEMES.flatMap((src, i) =>
-    Array.from({ length: 3 }, (_, j) => ({ src, seed: i * 3 + j + 1 }))
-  );
-
-  return (
-    <section style={{ position: 'relative', height: 520, overflow: 'hidden', background: '#C8925A' }}>
-      <style>{`
-        @keyframes float0 {
-          0%, 100% { transform: translateY(0px) rotate(8deg); }
-          50% { transform: translateY(-32px) rotate(8deg); }
-        }
-        @keyframes float1 {
-          0%, 100% { transform: translateY(0px) rotate(-10deg); }
-          50% { transform: translateY(-24px) rotate(-10deg); }
-        }
-        @keyframes float2 {
-          0%, 100% { transform: translateY(0px) rotate(5deg); }
-          33% { transform: translateY(-18px) rotate(5deg); }
-          66% { transform: translateY(-36px) rotate(5deg); }
-        }
-        @keyframes float3 {
-          0%, 100% { transform: translateY(0px) rotate(-6deg); }
-          50% { transform: translateY(-28px) rotate(-6deg); }
-        }
-      `}</style>
-      {items.map(({ src, seed }) => (
-        <Floater key={seed} src={src} seed={seed} />
-      ))}
-      <div style={{
-        position: 'absolute', inset: 0, zIndex: 1,
-        display: 'flex', alignItems: 'center', justifyContent: 'center',
-        background: 'rgba(200, 146, 90, 0.45)',
-        backdropFilter: 'blur(2px)',
-      }}>
-        <h2 style={{
-          fontFamily: "'Permanent Marker', cursive",
-          fontSize: 'clamp(48px, 7vw, 80px)',
-          color: '#1a1008',
-          textAlign: 'center',
-          lineHeight: 1.1,
-          textShadow: '3px 3px 0 rgba(255,255,255,0.25)',
-          userSelect: 'none',
-        }}>
-          The Memes<br />Are Real
-        </h2>
-      </div>
-    </section>
-  );
-}
+// Each entry: [src, left%, top%, size, rotation, animName, duration, delay]
+const HERO_MEMES: [string, string, string, number, number, string, number, number][] = [
+  // LEFT SIDE
+  ['/meme1.jpeg', '1%',  '12%', 180, -8,  'floatA', 7,  0],
+  ['/meme3.jpeg', '0%',  '52%', 160,  6,  'floatB', 9, -3],
+  ['/meme2.jpeg', '2%',  '78%', 150, -5,  'floatA', 8, -5],
+  // RIGHT SIDE
+  ['/meme2.jpeg', 'calc(100% - 190px)', '8%',  180,  9,  'floatB', 8, -2],
+  ['/meme4.jpeg', 'calc(100% - 175px)', '42%', 165, -7,  'floatA', 7, -6],
+  ['/meme3.jpeg', 'calc(100% - 180px)', '72%', 155,  5,  'floatB', 9, -1],
+  // EXTRAS peeking from edges
+  ['/meme4.jpeg', '-20px', '38%', 140, 12,  'floatA', 10, -4],
+  ['/meme1.jpeg', 'calc(100% - 140px)', 'calc(100% - 160px)', 140, -11, 'floatB', 10, -7],
+];
 
 function App() {
   return (
@@ -184,16 +115,32 @@ function App() {
         position: 'relative',
         overflow: 'hidden',
       }}>
-        <div style={{
-          position: 'absolute', width: 600, height: 600, borderRadius: '50%',
-          background: 'rgba(255,255,255,0.06)', top: '10%', left: '-15%',
-          pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute', width: 400, height: 400, borderRadius: '50%',
-          background: 'rgba(0,0,0,0.06)', bottom: '5%', right: '-10%',
-          pointerEvents: 'none',
-        }} />
+        <style>{`
+          @keyframes floatA {
+            0%, 100% { transform: translateY(0px);   }
+            50%       { transform: translateY(-28px); }
+          }
+          @keyframes floatB {
+            0%, 100% { transform: translateY(0px);   }
+            50%       { transform: translateY(-20px); }
+          }
+        `}</style>
+
+        {/* FLOATING MEMES */}
+        {HERO_MEMES.map(([src, left, top, size, rot, anim, dur, del], i) => (
+          <div key={i} style={{
+            position: 'absolute', left, top,
+            width: size, height: size,
+            borderRadius: 14, overflow: 'hidden',
+            boxShadow: '0 10px 36px rgba(0,0,0,0.32)',
+            border: '3px solid rgba(0,0,0,0.18)',
+            transform: `rotate(${rot}deg)`,
+            animation: `${anim} ${dur}s ease-in-out ${del}s infinite`,
+            pointerEvents: 'none', zIndex: 0,
+          }}>
+            <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+        ))}
 
         <div style={{ position: 'relative', zIndex: 1, maxWidth: 900, padding: '0 24px' }}>
           <div style={{
@@ -304,8 +251,6 @@ function App() {
           }
         `}</style>
       </div>
-
-      <FloatingMemes />
 
       {/* ABOUT */}
       <section id="about" style={{ padding: '120px 24px', background: '#BA7F45' }}>
