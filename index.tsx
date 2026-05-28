@@ -172,18 +172,6 @@ function App() {
             The People's Regulator
           </div>
 
-          <img
-            src="/hero.jpg"
-            alt="Gury Gunsler"
-            style={{
-              display: 'block', margin: '0 auto 40px',
-              maxWidth: 680, width: '100%',
-              borderRadius: 16,
-              boxShadow: '0 24px 80px rgba(0,0,0,0.3)',
-              border: '3px solid rgba(0,0,0,0.15)',
-            }}
-          />
-
           <h1 style={{
             fontFamily: "'Permanent Marker', cursive",
             fontSize: 'clamp(64px, 10vw, 110px)',
